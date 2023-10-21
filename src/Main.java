@@ -88,7 +88,17 @@ public class Main {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://192.168.1.128:3306/grouse_lol","desktop","&a90f#b33Sf0");
+
+            String configFilePath = "src/config.properties";
+            FileInputStream propsInput = new FileInputStream(configFilePath);
+
+            Properties props =new Properties();
+            props.load(propsInput);
+
+            String user = props.getProperty("username");
+            String password = props.getProperty("password");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://192.168.1.128:3306/grouse_lol",user,password);
             Statement stmt = con.createStatement();
             return stmt.executeQuery(statement);
 
